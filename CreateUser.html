@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lab 05 -- Create User</title>
+	<!--Bootstrap CSS-->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<!--jQuery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+	<!--Bootstrap JS-->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="style.css">
+
+	<script>
+
+	function validate()
+	{
+		var user_id = document.getElementById('user_id').value;
+		if(user_id.length > 255)
+		{
+			alert('ERROR: User Ids may not be longer than 255 characters.');
+			return false;
+		}
+		if(user_id.length < 1)
+		{
+			alert('ERROR: User Ids may not be empty');
+			return false;
+		}
+		return true;
+	}
+
+	</script>
+</head>
+<body>
+	<div class="content-box">
+		<h1>Create User</h1>
+		<br>
+		<br>
+		<div class="material-card">
+			<h3>Enter User ID:</h3>
+			<form name="user_form" action="CreateUser.php" method="POST" onsubmit="return validate();">
+				<div class="form-group">
+				  <label for="user_id">User ID:</label>
+				  <input type="text" class="form-control" id="user_id" name="user_id">
+				</div>
+				<input class="btn btn-primary" type="submit">
+			</form>
+		</div>
+  </div>
+</body>
+</html>
