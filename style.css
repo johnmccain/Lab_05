@@ -33,3 +33,7 @@ textarea{
 #post-card{
   height: 600px;
 }
+
+#user-table{
+	border-radius: 1px;
+}
