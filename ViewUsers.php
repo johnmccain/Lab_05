@@ -44,12 +44,7 @@
 		echo '<tr><th>Users:</th></tr>';
 		foreach($users as $user)
 		{
-			echo '<tr>';
-			foreach($user as $user_data)
-			{
-				echo '<td>' . $user_data . '</td>';
-			}
-			echo '</td>';
+			echo '<tr><td>' . $user[0] . '</td></tr>';
 		}
 	  echo '</table>';
 		?>

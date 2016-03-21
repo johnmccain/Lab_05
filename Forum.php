@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Lab_05 -- ADMIN: View User Posts</title>
+	<title>Lab_05 -- McCain's Forum</title>
 	<!--Bootstrap CSS-->
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
@@ -18,7 +18,8 @@
 </head>
 <body>
 	<div id="content-box">
-		<h1>ADMIN: Delete Post</h1>
+		<h1>McCain's Forum</h1>
+		<h3><i>Let's talk about John.</i></h3>
 		<br>
 		<br>
 		<?php
@@ -30,28 +31,33 @@
 				exit();
 		}
 
-		$message = "<ul class='list-group'>";
+		$author = $_POST['user'];
 
-		$posts = $_POST['delete'];
+		$query = "SELECT * FROM posts";
 
-		$queryTemplate = "DELETE FROM posts WHERE post_id = '";
+		$result;
 
-		foreach($posts as $post)
+		if($result = $connection->query($query))
 		{
-			$query = $queryTemplate . $post . "';";
-			if($connection->query($query))
+			$posts = $result->fetch_all();
+			if(empty($posts))
 			{
-				$message = $message . "<li class='list-group-item'>Succesfully deleted post " . $post . "</li>";
+				echo '<div class="material-card"><h3>There are no posts to show!</h3></div>';
 			}
 			else
 			{
-				$message = $message . "<li class='list-group-item'>Failed to delete post " . $post . "</li>";
+				foreach($posts as $post)
+				{
+					echo '<div class="material-card"><h5> post id: ' . $post[0] . '</h5>';
+					echo '<h5> author: ' . $post[2] . '</h5>';
+					echo '<p>' . $post[1] . '</p></div>';
+				}
 			}
 		}
-		$message = $message . "</ul>";
-		echo '<div class="material-card">' . $message . '</div>';
+
+		$connection->close();
 		?>
-		<button class="btn btn-primary" onclick="window.location.href='DeletePost.html'">back</button>
-	</div>
+		<button class="btn btn-primary" onclick="window.location.href='index.html'">back</button>
+</div>
 </body>
 </html>

@@ -50,7 +50,7 @@
 				{
 
 					echo '<div class="material-card"><h5> post id: ' . $post[0] . '</h5>';
-					echo '<h5> author :' . $post[2] . '</h5>';
+					echo '<h5> author: ' . $post[2] . '</h5>';
 					echo '<p>' . $post[1] . '</p></div>';
 				}
 			}
