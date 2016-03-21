@@ -18,14 +18,13 @@
 </head>
 <body>
 	<div id="content-box">
-		<h1>ADMIN: View User Posts</h1>
+		<h1>ADMIN: Delete Post</h1>
 		<br>
 		<br>
 		<div class="material-card">
-			<form action="ViewUserPosts.php" method="POST">
+			<form action="DeletePost.php" method="POST">
 				<div class="form-group">
-			  <label for="sel1">Select list:</label>
-				  <select class="form-control" id="user" name="user">
+			  <label for="sel1">Choose Posts to Delete:</label>
 					<?php
 					$connection = new mysqli('mysql.eecs.ku.edu', 'jmccain', 'ruffalo', 'jmccain');
 
@@ -35,21 +34,21 @@
 							exit();
 					}
 
-					$query = "SELECT user_id FROM users";
+					$query = "SELECT * FROM posts";
 
 					$result = $connection->query($query);
 
-					$users = $result->fetch_all();
+					$posts = $result->fetch_all();
 
-					foreach($users as $user)
+					echo '<table class="table table-striped">';
+					echo '<tr><th>post_id</th><th>author_id</th><th>delete?</th></tr>';
+					foreach($posts as $post)
 					{
-						foreach($user as $user_data)
-						{
-							echo '<option value="' . $user_data . '" >' . $user_data . ' </option>';
-						}
+						echo '<tr><td>' . $post[0] . '</td><td>' . $post[2] . '</td><td><div class="checkbox"><label><input type="checkbox" name="delete[]" value="' . $post[0] . '"></label></div></td></tr>';
 					}
+
+					echo '</table>';
 					?>
-					</select>
 				</div>
 				<input class="btn btn-primary" type="submit">
 			</form>
