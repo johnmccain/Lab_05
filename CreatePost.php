@@ -21,29 +21,45 @@
 		<h1>Create Post</h1>
 		<br>
 		<br>
-    <?php
-    $connection = new mysqli('mysql.eecs.ku.edu', 'jmccain', 'ruffalo', 'jmccain');
+		<?php
+		$connection = new mysqli('mysql.eecs.ku.edu', 'jmccain', 'ruffalo', 'jmccain');
 
-    if ($connection->connect_error)
-    {
-        printf("Connect failed: %s\n", $connection->connect_error);
-        exit();
-    }
+		if ($connection->connect_error)
+		{
+				printf("Connect failed: %s\n", $connection->connect_error);
+				exit();
+		}
 
-    $newUser = $_POST['author_id'];
-    /*
-    if($connection->query("INSERT INTO users (user_id) VALUES ('" . $newUser . "')") === true)
-    {
-      echo '<h3>New user ' . $newUser . ' created</h3>';
-    }
-    else
-    {
-      echo 'ERROR: The user id "' + $newUser + '" is already taken.';
-    }
-    */
+		$author = $_POST['author_id'];
+		$content = $_POST['content'];
 
-    $connection->close();
-    ?>
+		$query = "SELECT user_id FROM users WHERE user_id = '" . $author . "'";
+
+		$result;
+
+		if($result = $connection->query($query))
+		{
+			if(empty($result->fetch_all()))
+			{
+				echo '<h3 style="color:red">ERROR: The author id "' . $author . '" does not exist.</h3>';
+			}
+			else if($connection->query("INSERT INTO posts (content, author_id) VALUES ('$content', '$author')") === true)
+			{
+				echo '<h3 style="color:green;">Post succesful!</h3>';
+			}
+			else
+			{
+				echo '<h3 style="color:red;">Post unsuccesful :(</h3> ';
+			}
+		}
+		else
+		{
+			echo '<h3 style="color:red">ERROR: The author id "' . $author . '" does not exist.</h3>';
+		}
+
+		$connection->close();
+		?>
+		<button class="btn btn-primary" onclick="window.location.href='/~jmccain/EECS448/Lab_05/CreatePost.html'">back</button>
 </div>
 </body>
 </html>

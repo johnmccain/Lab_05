@@ -40,7 +40,7 @@
 				}
 				else
 				{
-					echo 'ERROR: The user id "' + $newUser + '" is already taken.';
+					echo '<h3 style="color:red;">ERROR: The user id "' + $newUser + '" is already taken.</h3>';
 				}
 
 				$connection->close();
